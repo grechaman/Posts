@@ -47,11 +47,7 @@ object WallService {
         return post
     }
 
-    fun createUser(name: String) {
-        users += Users(name)
-    }
-
-    private fun addPost(post: Post) {
+    fun addPost(post: Post) {
         posts += post
     }
 
@@ -60,45 +56,14 @@ object WallService {
         return users.last()
     }
 
-    fun printPost(post: Post): String {
-        var tt: String = " "
-        for (user in users) {
-            if (post.ownerId == user.id) {
-                tt = if (post.fromId == user.id) printPostOnYourWall(post) else printPostToSomeone(post, user)
+    fun updatePost(id: Int, newText: String): Boolean {
+        posts.forEachIndexed { index, postElement ->
+            if (id == postElement.id) {
+                posts[index] = postElement.copy(text = newText)
+                return true
             }
         }
-        return tt
-    }
-
-    fun updatePost(post: Post, newText: String): Boolean {
-        var statusUpdate: Boolean = false
-        for ((index, element) in posts.withIndex()) {
-            if (post.id == element.id) {
-                posts[index] = element.copy(text = newText)
-                statusUpdate = true
-                break
-            }
-        }
-        return statusUpdate
-    }
-
-    private fun printPostToSomeone(post: Post, userAuthor: Users): String {
-        var user1: Users = userAuthor
-        for (user in users) {
-            if (post.fromId == user.id) user1 = user
-        }
-        val time = java.text.SimpleDateFormat("HH:mm dd-MM-yyyy")
-        return "Пост опубликован на стене ${user1.names}\n" +
-                "Автор публикации ${userAuthor.names}\n" +
-                "Дата публикации: ${time.format(post.date)}\n" +
-                "${post.text}\n"
-    }
-
-    private fun printPostOnYourWall(post: Post): String {
-        val time = java.text.SimpleDateFormat("HH:mm dd-MM-yyyy")
-        return "Пост опубликован на вашей стене\n" +
-                "Дата публикации: ${time.format(post.date)}\n" +
-                "${post.text}\n"
+        return false
     }
 }
 
@@ -118,11 +83,7 @@ fun main() {
         user3, user2,
         text = "Для работы с любыми типами вам вполне могут понадобиться методы и операторы из тех"
     )
-
-    println(WallService.printPost(post1))
-    println(WallService.printPost(post2))
-    println(WallService.printPost(post3))
-    val status = WallService.updatePost(post3, "Повторяю НЕТ ВОЙНЕ 100000 раз https://www.youtube.com/watch?v=8yuhjZ_n9tI")
-    println(WallService.printPost(post3))
+    val status =
+        WallService.updatePost(2, "Повторяю НЕТ ВОЙНЕ 100000 раз https://www.youtube.com/watch?v=8yuhjZ_n9tI")
     println(status)
 }
