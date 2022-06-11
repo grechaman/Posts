@@ -19,11 +19,11 @@ class WallServiceTest {
     @Test
     fun updatePostResultFalse() {
         val service = WallService
-        service.addPost(Post(1,1,1,1,"qq"))
-        service.addPost(Post(2,1,1,1,"qq"))
+//        service.addPost(Post(1,1,1,1,"qq"))
+//        service.addPost(Post(2,1,1,1,"qq"))
         service.addPost(Post(3,1,1,1,"qq"))
         val textNew="ww"
-        val result = WallService.updatePost(Post(4,1,1,1,"qq"),textNew)
+        val result = WallService.updatePost(Post(5,1,1,1,"qq"),textNew)
         assertFalse(result)
     }
 
