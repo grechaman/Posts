@@ -2,15 +2,16 @@ package ru.netology
 
 import ru.netology.attachments.*
 import ru.netology.service.WallService
+import java.util.*
 
 fun main() {
     val user1 = WallService.addUsers(Users("Стас"))
     val user2 = WallService.addUsers(Users("Николай"))
     val user3 = WallService.addUsers(Users("Вячеслав"))
     var arrayMusic = emptyArray<Audio>()
-    arrayMusic += Audio("Dude", "2pac", 39)
-    arrayMusic += Audio("Kek", "2pac", 93)
-    arrayMusic += Audio("4eburek", "2pac", 54)
+    arrayMusic += Audio("Jungle", "Freeway", 39)
+    arrayMusic += Audio("Chunky", "Format:B", 93)
+    arrayMusic += Audio("Perfect", "Ed Sheeran", 54)
     var arrayAttachments = emptyArray<Attachments>()
     arrayAttachments += AttachmentsAudio(id = 15, ownerId = 1, audio = arrayMusic[0])
     arrayAttachments += AttachmentsAudio(id = 16, ownerId = 2, audio = arrayMusic[1])
@@ -46,5 +47,6 @@ fun main() {
         post2, "Повторяю НЕТ ВОЙНЕ 100000 раз https://www.youtube.com/watch?v=8yuhjZ_n9tI"
     )
     println(status)
+    WallService.createComment(1, Comment("Dr.Dre",55,user1.id, Calendar.getInstance().timeInMillis,arrayAttachments[0]))
 
 }

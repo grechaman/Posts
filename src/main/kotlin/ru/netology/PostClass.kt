@@ -27,7 +27,8 @@ data class Post(
     val isFavorite: Boolean = false,
 //    val donut: Objects,
     val postponedId: Int = 0,
-    val arrayAttachments: Array<Attachments>?
+    val arrayAttachments: Array<Attachments>?,
+    val comment: Comment? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -50,7 +51,11 @@ data class Post(
         if (markedAsAds != other.markedAsAds) return false
         if (isFavorite != other.isFavorite) return false
         if (postponedId != other.postponedId) return false
-        if (!arrayAttachments.contentEquals(other.arrayAttachments)) return false
+        if (arrayAttachments != null) {
+            if (other.arrayAttachments == null) return false
+            if (!arrayAttachments.contentEquals(other.arrayAttachments)) return false
+        } else if (other.arrayAttachments != null) return false
+        if (comment != other.comment) return false
 
         return true
     }
@@ -71,7 +76,8 @@ data class Post(
         result = 31 * result + markedAsAds.hashCode()
         result = 31 * result + isFavorite.hashCode()
         result = 31 * result + postponedId
-        result = 31 * result + arrayAttachments.contentHashCode()
+        result = 31 * result + (arrayAttachments?.contentHashCode() ?: 0)
+        result = 31 * result + (comment?.hashCode() ?: 0)
         return result
     }
 }

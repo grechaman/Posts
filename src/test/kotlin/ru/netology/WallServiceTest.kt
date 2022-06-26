@@ -24,7 +24,7 @@ class WallServiceTest {
         service.addPost(Post(3, 1, 1, 1, "qq", arrayAttachments = null))
         val textNew = "ww"
         val result = WallService.updatePost(Post(5, 1, 1, 1, "qq", arrayAttachments = null), textNew)
-        assertFalse(result)
+        assertTrue(!result)
     }
 
     @Test
@@ -36,5 +36,24 @@ class WallServiceTest {
         val textNew = "ww"
         val result = WallService.updatePost(Post(1, 1, 1, 1, "qq", arrayAttachments = null), textNew)
         assertTrue(result)
+    }
+
+    @Test
+    fun createPostResultSuccess() {
+        val service = WallService
+        service.addPost(Post(1, 1, 1, 1, "qq", arrayAttachments = null))
+//        service.addPost(Post(2, 1, 1, 1, "qq", arrayAttachments = null))
+//        service.addPost(Post(3, 1, 1, 1, "qq", arrayAttachments = null))
+        val result = service.createComment(1, Comment("wow", 39, 2, 5, null))
+        assertTrue(result.id!=0)
+    }
+
+    @Test
+    fun createPostResultException() {
+        val service = WallService
+        service.addPost(Post(1, 1, 1, 1, "qq", arrayAttachments = null))
+        service.addPost(Post(2, 1, 1, 1, "qq", arrayAttachments = null))
+        service.addPost(Post(3, 1, 1, 1, "qq", arrayAttachments = null))
+        val result = WallService.createComment(5, Comment("wow", 39, 2, 5, null))
     }
 }
