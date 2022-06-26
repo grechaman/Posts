@@ -2,6 +2,9 @@ package ru.netology.service
 
 import ru.netology.Post
 import ru.netology.Users
+import ru.netology.attachments.Attachments
+import ru.netology.attachments.AttachmentsAudio
+import ru.netology.attachments.Audio
 
 var counter = 1
 
@@ -21,7 +24,7 @@ object WallService {
         return users.last()
     }
 
-    fun updatePost(post: Post,newText:String): Boolean {
+    fun updatePost(post: Post, newText: String): Boolean {
         posts.forEachIndexed { index, postElement ->
             if (post.id == postElement.id) {
                 posts[index] = postElement.copy(text = newText)
