@@ -8,7 +8,7 @@ import ru.netology.attachments.Attachments
 import ru.netology.attachments.AttachmentsAudio
 import ru.netology.attachments.Audio
 
-var counter = 1
+var counter = 0
 
 object WallService {
     private var posts = emptyArray<Post>()
@@ -38,13 +38,15 @@ object WallService {
     }
 
     fun createComment(postId: Int, comment: Comment): Comment {
+        var variable:Boolean = false
         for (post in posts){
             if (postId == post.id) {
                 comments+= comment
+                variable = true
                 break
-            } else throw PostNotFoundException()
+            }
         }
-        println("Success")
+        if (variable) println("Success") else throw PostNotFoundException()
         return comment
     }
 }

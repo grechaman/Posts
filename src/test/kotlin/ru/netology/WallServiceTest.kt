@@ -42,7 +42,7 @@ class WallServiceTest {
     fun createPostResultSuccess() {
         val service = WallService
         service.addPost(Post(1, 1, 1, 1, "qq", arrayAttachments = null))
-//        service.addPost(Post(2, 1, 1, 1, "qq", arrayAttachments = null))
+        service.addPost(Post(2, 1, 1, 1, "qq", arrayAttachments = null))
 //        service.addPost(Post(3, 1, 1, 1, "qq", arrayAttachments = null))
         val result = service.createComment(1, Comment("wow", 39, 2, 5, null))
         assertTrue(result.id!=0)
@@ -50,10 +50,16 @@ class WallServiceTest {
 
     @Test
     fun createPostResultException() {
+        var result:Boolean = true
         val service = WallService
         service.addPost(Post(1, 1, 1, 1, "qq", arrayAttachments = null))
         service.addPost(Post(2, 1, 1, 1, "qq", arrayAttachments = null))
         service.addPost(Post(3, 1, 1, 1, "qq", arrayAttachments = null))
-        val result = WallService.createComment(5, Comment("wow", 39, 2, 5, null))
+        try {
+            val result = WallService.createComment(5, Comment("wow", 39, 2, 5, null))
+        } catch (e:RuntimeException){
+            result = false
+        }
+        assertFalse(result)
     }
 }

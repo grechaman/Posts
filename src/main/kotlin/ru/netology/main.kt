@@ -47,6 +47,6 @@ fun main() {
         post2, "Повторяю НЕТ ВОЙНЕ 100000 раз https://www.youtube.com/watch?v=8yuhjZ_n9tI"
     )
     println(status)
-    WallService.createComment(1, Comment("Dr.Dre",55,user1.id, Calendar.getInstance().timeInMillis,arrayAttachments[0]))
+    WallService.createComment(2, Comment("Dr.Dre",55,user1.id, Calendar.getInstance().timeInMillis,arrayAttachments[0]))
 
 }
